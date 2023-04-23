@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { NPER, PMT } from "../pages/utils/calculations";
+import { NPER, PMT } from "../utils/calculations";
 
 interface LoanContextType {
   term: number;
