@@ -11,8 +11,8 @@ import { NPER, PMT } from "../utils/calculations";
 interface LoanContextType {
   term: number;
   setTerm: React.Dispatch<React.SetStateAction<number>>;
-  interestPerc: number;
-  setInterestPerc: React.Dispatch<React.SetStateAction<number>>;
+  interestPerc: string;
+  setInterestPerc: React.Dispatch<React.SetStateAction<string>>;
   loanAmount: number;
   setLoanAmount: React.Dispatch<React.SetStateAction<number>>;
   monthlyPayment: number;
@@ -31,7 +31,7 @@ interface LoanContextType {
 const LoanContext = createContext<LoanContextType>({
   term: 0,
   setTerm: () => {},
-  interestPerc: 0,
+  interestPerc: "0",
   setInterestPerc: () => {},
   loanAmount: 0,
   setLoanAmount: () => {},
@@ -52,7 +52,7 @@ export const useLoanContext = () => useContext(LoanContext);
 
 const LoanProvider: React.FC = ({ children }: any) => {
   const [term, setTerm] = useState<number>(0);
-  const [interestPerc, setInterestPerc] = useState<number>(0);
+  const [interestPerc, setInterestPerc] = useState<string>("0");
   const [loanAmount, setLoanAmount] = useState<number>(0);
   const [monthlyPayment, setMonthlyPayment] = useState<number>(0);
   const [totalLoanCost, setTotalLoanCost] = useState<number>(0);
@@ -63,7 +63,11 @@ const LoanProvider: React.FC = ({ children }: any) => {
 
   const calculateTotalLoanCost = () => {
     // Add present value
-    const monthlyRePayment = -PMT(interestPerc / 100 / 12, term, loanAmount);
+    const monthlyRePayment = -PMT(
+      parseFloat(interestPerc) / 100 / 12,
+      term,
+      loanAmount
+    );
     setTotalLoanCost(monthlyRePayment * term);
     setMonthlyPayment(
       Number(Math.round(parseFloat(monthlyRePayment + "e" + 2)) + "e-" + 2)
@@ -73,7 +77,11 @@ const LoanProvider: React.FC = ({ children }: any) => {
 
   const calculateTotalPeriodForLoanRepayment = () => {
     // Add present value
-    const term = NPER(interestPerc / 100 / 12, -monthlyPayment, loanAmount);
+    const term = NPER(
+      parseFloat(interestPerc) / 100 / 12,
+      -monthlyPayment,
+      loanAmount
+    );
     setTerm(Math.round(term));
   };
 

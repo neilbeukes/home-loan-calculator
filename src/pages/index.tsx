@@ -19,6 +19,7 @@ export default function Home() {
     calculate,
     updateInputs,
     selectedInputs,
+    resultsRef,
   } = useLoanContext();
 
   return (
@@ -80,6 +81,7 @@ export default function Home() {
             term={term}
             monthlyPayment={monthlyPayment}
             interestPerc={interestPerc}
+            resultsRef={resultsRef}
           />
         </div>
       </div>

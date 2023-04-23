@@ -6,7 +6,7 @@ interface ResultsProps {
   netLoan: number;
   currency: string;
   term: number;
-  interestPerc: number;
+  interestPerc: string;
   monthlyPayment: number;
   resultsRef: React.RefObject<HTMLDivElement> | null;
 }

@@ -3,11 +3,11 @@ import CalculatorInput from "./calculatorInput";
 
 interface CalculatorProps {
   term: number;
-  interestPerc: number;
+  interestPerc: string;
   loanAmount: number;
   monthlyPayment: number;
   setTerm: (term: number) => void;
-  setInterestPerc: (interest: number) => void;
+  setInterestPerc: (interest: string) => void;
   setLoanAmount: (loanAmount: number) => void;
   setMonthlyPayment: (monthlyPayment: number) => void;
   currency: string;
@@ -48,15 +48,21 @@ const Calculator = (props: CalculatorProps): JSX.Element => {
         );
       case "interestPerc":
         return (
-          <CalculatorInput
-            key={key}
-            placeholder="12"
-            post={"%"}
-            label="Interest Rate"
-            name="interestPerc"
-            value={interestPerc}
-            onChange={setInterestPerc}
-          />
+          <div className="form-control w-full mb-4">
+            <label className="label">
+              <span className="label-text">Interest Rate</span>
+            </label>
+            <label className="input-group ">
+              <input
+                value={`${interestPerc}`}
+                onChange={(e) => setInterestPerc(e.target.value)}
+                placeholder={"3.5"}
+                pattern="/^\d+(\.\d+)?$/"
+                className="input input-bordered w-full"
+              />
+              <span>%</span>
+            </label>
+          </div>
         );
       case "loanAmount":
         return (
