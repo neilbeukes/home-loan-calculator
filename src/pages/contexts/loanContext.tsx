@@ -61,7 +61,7 @@ const LoanProvider: React.FC = ({ children }: any) => {
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
   const resultsRef = useRef<HTMLDivElement>(null);
 
-  const calculateTotalLoanCost = () => {
+  const calculateTotalLoanCost = useCallback(() => {
     // Add present value
     const monthlyRePayment = -PMT(
       parseFloat(interestPerc) / 100 / 12,
@@ -73,9 +73,9 @@ const LoanProvider: React.FC = ({ children }: any) => {
       Number(Math.round(parseFloat(monthlyRePayment + "e" + 2)) + "e-" + 2)
     );
     setTotalInterest(monthlyRePayment * term - loanAmount);
-  };
+  }, [term, loanAmount, interestPerc]);
 
-  const calculateTotalPeriodForLoanRepayment = () => {
+  const calculateTotalPeriodForLoanRepayment = useCallback(() => {
     // Add present value
     const term = NPER(
       parseFloat(interestPerc) / 100 / 12,
@@ -83,7 +83,7 @@ const LoanProvider: React.FC = ({ children }: any) => {
       loanAmount
     );
     setTerm(Math.round(term));
-  };
+  }, [monthlyPayment, loanAmount, interestPerc]);
 
   const updateInputs = (input: string) => {
     if (selectedInputs.includes(input)) {
