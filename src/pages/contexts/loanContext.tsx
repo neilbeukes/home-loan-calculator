@@ -107,7 +107,14 @@ const LoanProvider: React.FC = ({ children }: any) => {
     if (resultsRef?.current) {
       resultsRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [term, interestPerc, loanAmount, monthlyPayment]);
+  }, [
+    term,
+    interestPerc,
+    loanAmount,
+    monthlyPayment,
+    calculateTotalLoanCost,
+    calculateTotalPeriodForLoanRepayment,
+  ]);
 
   const value: LoanContextType = {
     term,
