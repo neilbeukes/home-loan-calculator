@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Calculator from "./components/calculator";
-import Results from "./components/results";
-import { useLoanContext } from "./contexts/loanContext";
+import Calculator from "../components/calculator";
+import Results from "../components/results";
+import { useLoanContext } from "../contexts/loanContext";
 
 export default function Home() {
   const {
